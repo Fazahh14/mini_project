@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Http\Controllers\Auth;
 
@@ -11,17 +11,12 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    /**
-     * Show login form
-     */
     public function showLogin()
     {
         return view('auth.login');
     }
 
-    /**
-     * Handle login request
-     */
+
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -34,7 +29,6 @@ class AuthController extends Controller
             
             $user = Auth::user();
             
-            // Redirect based on role
             if ($user->isAdmin()) {
                 return redirect()->route('admin.dashboard');
             } else {
@@ -47,17 +41,13 @@ class AuthController extends Controller
         ])->onlyInput('email');
     }
 
-    /**
-     * Show registration form
-     */
+
     public function showRegister()
     {
         return view('auth.register');
     }
 
-    /**
-     * Handle registration request
-     */
+
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -76,17 +66,15 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => 'pengguna', // Default role
+            'role' => 'pengguna', 
         ]);
 
-        Auth::login($user);
-
-        return redirect()->route('pengguna.dashboard');
+        return redirect()
+            ->route('login')
+            ->with('success', 'Account created successfully! Please login first.');
     }
 
-    /**
-     * Handle logout request
-     */
+
     public function logout(Request $request)
     {
         Auth::logout();

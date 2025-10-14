@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +15,12 @@
             <h1>Welcome Back</h1>
             <p>Sign in to your account to continue</p>
         </div>
+
+        @if (session('success'))
+            <div class="alert-success" style="background: #d4edda; color: #155724; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
+                {{ session('success') }}
+            </div>
+        @endif
 
         <form method="POST" action="{{ route('login.submit') }}">
             @csrf
@@ -48,5 +53,4 @@
         </div>
     </div>
 </body>
-
 </html>

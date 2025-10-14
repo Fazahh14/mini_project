@@ -14,7 +14,8 @@
             <div class="menu-title">Main Menu</div>
             <ul class="menu-items">
                 <li class="menu-item">
-                    <a href="{{ route('admin.dashboard') }}" class="menu-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                    <a href="{{ route('admin.dashboard') }}" 
+                    class="menu-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                         <i class="bi bi-speedometer2 menu-icon"></i>
                         <span class="menu-text">Dashboard</span>
                     </a>
