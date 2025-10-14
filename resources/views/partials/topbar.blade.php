@@ -7,6 +7,7 @@
                     <img src="{{ asset('images/ikon.png') }}" alt="MyApp Logo" class="logo-image">
                 </a>
             </div>
+
             <!-- Navigation Menu -->
             <nav class="nav-menu">
                 <ul class="nav-list">
@@ -26,7 +27,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('news') }}" class="nav-link {{ request()->routeIs('news') ? 'active' : '' }}">
+                        <a href="{{ route('news.index') }}" class="nav-link {{ request()->routeIs('news.index') ? 'active' : '' }}">
                             News
                         </a>
                     </li>

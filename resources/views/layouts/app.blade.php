@@ -9,6 +9,8 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/topbar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/news.css') }}" rel="stylesheet">
+
     @stack('styles')
 </head>
 <body>
