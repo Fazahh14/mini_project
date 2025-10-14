@@ -6,10 +6,12 @@
     </div>
 
     <div class="topbar-right">
-        <div class="search-box">
+    <div class="search-box">
+        <form action="{{ route('admin.search') }}" method="GET">
             <i class='bx bx-search search-icon'></i>
-            <input type="text" class="search-input" placeholder="Search...">
-        </div>
+            <input type="text" name="query" class="search-input" placeholder="Search..." required>
+        </form>
+    </div>
 
         <div class="topbar-actions">
             <button class="action-btn" title="Notifications">

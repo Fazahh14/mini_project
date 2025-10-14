@@ -9,6 +9,7 @@ use App\Http\Controllers\ShopController;
 use App\Http\Controllers\HelpController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\Admin\CustomerController;
 
 Route::get('/welcome', function () {
     return view('welcome');
@@ -37,5 +38,13 @@ Route::middleware(['auth'])->group(function () {
 
 // Protected Routes - Admin
 Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');Route::get('/admin/search', [AdminSearchController::class, 'search'])->name('admin.search');
+
+    Route::get('/admin/customers', [CustomerController::class, 'index'])->name('admin.customers');
+    Route::get('/admin/customers/create', [CustomerController::class, 'create'])->name('admin.customers.create');
+    Route::post('/admin/customers', [CustomerController::class, 'store'])->name('admin.customers.store');
+    Route::get('/admin/customers/{id}/edit', [CustomerController::class, 'edit'])->name('admin.customers.edit');
+    Route::put('/admin/customers/{id}', [CustomerController::class, 'update'])->name('admin.customers.update');
+    Route::delete('/admin/customers/{id}', [CustomerController::class, 'destroy'])->name('admin.customers.destroy');
+
 });

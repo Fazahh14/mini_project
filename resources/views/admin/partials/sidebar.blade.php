@@ -35,7 +35,7 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="#" class="menu-link {{ request()->is('admin/customers*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.customers') }}" class="menu-link {{ request()->is('admin/customers*') ? 'active' : '' }}">
                         <i class="bi bi-people-fill menu-icon"></i>
                         <span class="menu-text">Customers</span>
                     </a>
