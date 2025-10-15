@@ -7,7 +7,7 @@
 
     <div class="topbar-right">
     <div class="search-box">
-        <form action="{{ route('admin.search') }}" method="GET">
+        <form action="#" method="GET">
             <i class='bx bx-search search-icon'></i>
             <input type="text" name="query" class="search-input" placeholder="Search..." required>
         </form>

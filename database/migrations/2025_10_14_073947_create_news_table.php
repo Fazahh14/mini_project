@@ -4,17 +4,20 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     public function up(): void
     {
         Schema::create('news', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('slug')->unique();
-            $table->text('content');
-            $table->string('category')->nullable(); // contoh: Music, Sports, Promotions
-            $table->string('image')->nullable(); // untuk gambar banner
-            $table->timestamps();
+            $table->string('title'); // Judul berita
+            $table->string('slug')->unique(); // Slug untuk URL
+            $table->string('description')->nullable(); // Ringkasan berita (dipakai di news.blade)
+            $table->text('content')->nullable(); // Isi lengkap berita
+            $table->date('date')->nullable(); // Tanggal berita (dipakai di news.blade)
+            $table->string('category')->nullable(); // Kategori berita
+            $table->string('image')->nullable(); // Gambar berita
+            $table->timestamps(); // created_at & updated_at
         });
     }
 
@@ -23,5 +26,3 @@ return new class extends Migration {
         Schema::dropIfExists('news');
     }
 };
-
-

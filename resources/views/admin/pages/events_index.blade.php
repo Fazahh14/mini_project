@@ -40,54 +40,71 @@
 <!-- Tabel Event -->
 <div class="card shadow-sm border-0">
     <div class="card-body">
-        <table class="table table-hover align-middle">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Nama Event</th>
-                    <th>Tanggal</th>
-                    <th>Lokasi</th>
-                    <th>Status</th>
-                    <th>Tiket Terjual</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($events as $event)
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td class="fw-semibold">{{ $event->nama_event }}</td>
-                    <td>{{ \Carbon\Carbon::parse($event->tanggal_event)->format('d M Y') }}</td>
-                    <td>{{ $event->lokasi }}</td>
-                    <td>
-                        <span class="badge 
-                            @if($event->status == 'aktif') bg-success 
-                            @elseif($event->status == 'nonaktif') bg-secondary 
-                            @else bg-warning text-dark @endif">
-                            {{ ucfirst($event->status) }}
-                        </span>
-                    </td>
-                    <td>{{ $event->tiket_terjual }}</td>
-                    <td>
-                        <a href="{{ route('admin.events.edit', $event->id) }}" class="btn btn-sm btn-warning">
-                            <i class="bi bi-pencil"></i>
-                        </a>
-                        <form action="{{ route('admin.events.destroy', $event->id) }}" method="POST" class="d-inline">
-                            @csrf
-                            @method('DELETE')
-                            <button onclick="return confirm('Hapus event ini?')" class="btn btn-sm btn-danger">
-                                <i class="bi bi-trash"></i>
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="7" class="text-center text-muted py-4">Belum ada event yang tersedia.</td>
-                </tr>
-                @endforelse
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Id</th>
+                        <th>Gambar</th>
+                        <th>Nama Event</th>
+                        <th>Tanggal</th>
+                        <th>Lokasi</th>
+                        <th>Harga Tiket</th>
+                        <th>Status</th>
+                        <th>Deskripsi</th>
+                        <th class="text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($events as $event)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>
+                            @if($event->gambar)
+                                <img src="{{ asset('storage/' . $event->gambar) }}" 
+                                     alt="{{ $event->nama_event }}" 
+                                     class="rounded" 
+                                     style="width:70px; height:70px; object-fit:cover;">
+                            @else
+                                <span class="text-muted">Tidak ada</span>
+                            @endif
+                        </td>
+                        <td class="fw-semibold">{{ $event->nama_event }}</td>
+                        <td>{{ \Carbon\Carbon::parse($event->tanggal_event)->format('d M Y') }}</td>
+                        <td>{{ $event->lokasi }}</td>
+                        <td>Rp{{ number_format($event->harga_tiket, 0, ',', '.') }}</td>
+                        <td>
+                            <span class="badge 
+                                @if($event->status == 'aktif') bg-success 
+                                @elseif($event->status == 'nonaktif') bg-secondary 
+                                @else bg-warning text-dark @endif">
+                                {{ ucfirst($event->status) }}
+                            </span>
+                        </td>
+                        <td>{{ Str::limit($event->deskripsi, 50) }}</td>
+                        <td class="text-center">
+                            <a href="{{ route('admin.events.edit', $event->id) }}" class="btn btn-sm btn-warning me-1">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <form action="{{ route('admin.events.destroy', $event->id) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button onclick="return confirm('Hapus event ini?')" class="btn btn-sm btn-danger">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="9" class="text-center text-muted py-4">
+                            Belum ada event yang tersedia.
+                        </td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
 
         <div class="d-flex justify-content-end mt-3">
             {{ $events->links() }}
