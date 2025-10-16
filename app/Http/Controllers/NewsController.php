@@ -7,14 +7,28 @@ use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {
-    public function index()
+    // ========================
+    // TAMPILKAN SEMUA BERITA
+    // ========================
+    public function index(Request $request)
     {
-        $latest = News::latest()->first(); // untuk banner
-        $news = News::latest()->paginate(3); // daftar berita
+        $latest = News::latest()->first();
+
+        // Pencarian berita
+        $query = News::query();
+        if ($request->has('q') && $request->q != '') {
+            $query->where('title', 'like', '%' . $request->q . '%')
+                ->orWhere('description', 'like', '%' . $request->q . '%');
+        }
+
+        $news = $query->latest()->paginate(3);
 
         return view('pages.news', compact('latest', 'news'));
     }
 
+    // ========================
+    // FILTER BERDASARKAN KATEGORI
+    // ========================
     public function category($slug)
     {
         $latest = News::latest()->first();
@@ -23,9 +37,12 @@ class NewsController extends Controller
         return view('pages.news', compact('latest', 'news'));
     }
 
+    // ========================
+    // DETAIL BERITA
+    // ========================
     public function show($slug)
     {
         $item = News::where('slug', $slug)->firstOrFail();
-        return view('news-detail', compact('item'));
+        return view('pages.news-detail', compact('item'));
     }
 }
